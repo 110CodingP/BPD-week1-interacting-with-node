@@ -1,1 +1,2 @@
+#!/bin/bash
 curl --user codingp110:3XMLDDizJG9XX19Cen3kJlqvaKSD8xponD1xtKp_5aQ --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblockcount", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:18443/

@@ -2,7 +2,7 @@
 RPC_USER="codingp110"
 RPC_PASSWORD="3XMLDDizJG9XX19Cen3kJlqvaKSD8xponD1xtKp_5aQ"
 RPC_HOST="127.0.0.1:18443"
-RPC_AUTH="codingp110:03beb84bf425a999b46111954389d04a$9958f062ce0ad900c2f77f2fa29a0d7fe75d3adcfb6824e42b27b44a053f3bd9"
+RPC_AUTH="codingp110:03beb84bf425a999b46111954389d04a\$9958f062ce0ad900c2f77f2fa29a0d7fe75d3adcfb6824e42b27b44a053f3bd9"
 
 # Helper function to make RPC calls
 rpc_call() {
@@ -14,7 +14,7 @@ rpc_call() {
 }
 
 # Check Connection
-info=$(rpc_call "getblockcount" "[\"\"]")
+info=$(rpc_call "getblockcount" "[]")
 echo $info
 
 # Create and load wallet
