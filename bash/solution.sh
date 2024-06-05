@@ -11,7 +11,7 @@ rpc_call() {
   shift
   local params=$@
 
-  curl -s --user $RPC_USER:$RPC_PASSWORD --data-binary "{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"$method\", \"params\": $params }" -H 'content-type: text/plain;' http://$RPC_HOST
+  curl -s --user $RPC_USER:$RPC_PASSWORD --data-binary "{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"$method\", \"params\": $params }" -H 'content-type: text/plain;' http://$RPC_HOST/
 }
 
 # Helper function to make wallet RPC calls
@@ -20,7 +20,7 @@ rpc_call_wallet() {
   shift
   local params=$@
 
-  curl -s --user $RPC_USER:$RPC_PASSWORD --data-binary "{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"$method\", \"params\": $params }" -H 'content-type: text/plain;' http://$RPC_HOST_WALLET/
+  curl -s --user $RPC_USER:$RPC_PASSWORD --data-binary "{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"$method\", \"params\": $params }" -H 'content-type: text/plain;' http://$RPC_HOST_WALLET
 }
 
 # Check Connection
@@ -34,14 +34,16 @@ info=$(rpc_call "loadwallet" '["testwallet"]')
 echo $info
 
 # Generate a new address
-addr=$(rpc_call_wallet "getnewaddress" "[]")
-echo $addr
+info=$(rpc_call_wallet "getnewaddress" "[]")
+echo $info
+addr=$(jq -r '.result' <<< "${info}")
+# echo $addr
 # Mine 103 blocks to the new address
-info=$(rpc_call "generatetoaddress" $addr )
+info=$(rpc_call "generatetoaddress" "["103", \"$addr\"]" )
 echo $info
 
 # Send the transaction
-txn=$(rpc_call 'send' '["[{\"bcrt1qq2yshcmzdlznnpxx258xswqlmqcxjs4dssfxt2\":100},{\"data\":\"57652061726520616c6c205361746f7368692121\"}]", "{\"fee_rate\": 21}" ]' )
+txn=$(rpc_call 'send' '[[{\"bcrt1qq2yshcmzdlznnpxx258xswqlmqcxjs4dssfxt2\":100},{\"data\":\"57652061726520616c6c205361746f7368692121\"}], "{\"fee_rate\": 21}" ]' )
 echo $txn
 
 # Output the transaction ID to a file
