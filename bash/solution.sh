@@ -25,26 +25,28 @@ rpc_call_wallet() {
 
 # Check Connection
 info=$(rpc_call "getblockcount" "[]")
-echo $info
+#echo $info
 
 # Create and load wallet
 info=$(rpc_call "createwallet" '["testwallet"]')
-echo $info
+#echo $info
 info=$(rpc_call "loadwallet" '["testwallet"]')
-echo $info
+#echo $info
 
 # Generate a new address
 info=$(rpc_call_wallet "getnewaddress" "[]")
-echo $info
+#echo $info
 addr=$(jq -r '.result' <<< "${info}")
 # echo $addr
 # Mine 103 blocks to the new address
 info=$(rpc_call "generatetoaddress" "["103", \"$addr\"]" )
-echo $info
+#echo $info
 
 # Send the transaction
-txn=$(rpc_call 'send' '[[{\"bcrt1qq2yshcmzdlznnpxx258xswqlmqcxjs4dssfxt2\":100},{\"data\":\"57652061726520616c6c205361746f7368692121\"}], "{\"fee_rate\": 21}" ]' )
-echo $txn
+txn=$(rpc_call_wallet 'send' "[[{\"bcrt1qq2yshcmzdlznnpxx258xswqlmqcxjs4dssfxt2\":100},{\"data\":\"57652061726520616C6C205361746F7368692121\"}],null,\"unset\",25,null]")
+#echo $txn
 
 # Output the transaction ID to a file
-echo $txn | jq -r '.txid' > out.txt
+res=$(jq -r '.result' <<< "${txn}")
+txid=$(jq -r '.txid' <<< "${res}")
+echo $txid > out.txt
