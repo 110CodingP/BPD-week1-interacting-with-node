@@ -49,4 +49,4 @@ txn=$(rpc_call_wallet 'send' "[[{\"bcrt1qq2yshcmzdlznnpxx258xswqlmqcxjs4dssfxt2\
 # Output the transaction ID to a file
 res=$(jq -r '.result' <<< "${txn}")
 txid=$(jq -r '.txid' <<< "${res}")
-echo $txid > out.txt
+echo $txid > ../out.txt
