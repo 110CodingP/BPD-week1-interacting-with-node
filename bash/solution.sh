@@ -43,7 +43,7 @@ info=$(rpc_call "generatetoaddress" "["103", \"$addr\"]" )
 echo $info
 
 # Send the transaction
-txn=$(rpc_call_wallet 'send' "[[{\"bcrt1qq2yshcmzdlznnpxx258xswqlmqcxjs4dssfxt2\":100},{\"data\":\"57652061726520616C6C205361746F7368692121\"}],null,\"unset\",25,null]")
+txn=$(rpc_call_wallet 'send' "[[{\"bcrt1qq2yshcmzdlznnpxx258xswqlmqcxjs4dssfxt2\":100},{\"data\":\"57652061726520616C6C205361746F7368692121\"}],null,\"unset\",21,null]")
 echo $txn
 
 # Output the transaction ID to a file
