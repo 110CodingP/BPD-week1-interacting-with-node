@@ -13,8 +13,8 @@ describe('Evaluate submission', () => {
     });
 
     it('should get transaction details from node', async () => {
-        const RPC_USER="codingp110";
-        const RPC_PASSWORD="3XMLDDizJG9XX19Cen3kJlqvaKSD8xponD1xtKp_5aQ";
+        const RPC_USER="alice";
+        const RPC_PASSWORD="password";
         const RPC_HOST="http://127.0.0.1:18443";
 
         const response = await fetch(RPC_HOST, {

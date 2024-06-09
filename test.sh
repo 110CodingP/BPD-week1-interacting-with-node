@@ -4,7 +4,7 @@ nvm install --lts
 npm install
 
 # Spawn Bitcoind, and provide execution permission.
-# docker compose up -d
+docker compose up -d
 chmod +x ./bash/run-bash.sh
 chmod +x ./python/run-python.sh
 chmod +x ./javascript/run-javascript.sh
@@ -16,4 +16,4 @@ chmod +x ./run.sh
 npm run test
 
 # Stop the docker.
-# docker compose down -v
+docker compose down -v
