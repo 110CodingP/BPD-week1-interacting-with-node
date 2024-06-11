@@ -1,1 +1,1 @@
-bash/solution.sh
+/bin/bash ./bash/solution.sh

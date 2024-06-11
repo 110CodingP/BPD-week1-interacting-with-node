@@ -5,6 +5,7 @@ npm install
 
 # Spawn Bitcoind, and provide execution permission.
 docker compose up -d
+sleep 1
 chmod +x ./bash/run-bash.sh
 chmod +x ./python/run-python.sh
 chmod +x ./javascript/run-javascript.sh
@@ -13,6 +14,7 @@ chmod +x ./run.sh
 
 # Run the test scripts
 /bin/bash run.sh
+sleep 1
 npm run test
 
 # Stop the docker.

@@ -10,7 +10,7 @@ rpc_call() {
   shift
   local params=$@
 
-  curl -s --user $RPC_USER:$RPC_PASSWORD --data-binary "{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"$method\", \"params\": $params }" -H 'content-type: text/plain;' http://$RPC_HOST/
+  curl -s --user $RPC_USER:$RPC_PASSWORD --data-binary "{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"$method\", \"params\": $params }" -H 'content-type: text/plain;' http://$RPC_HOST
 }
 
 # Helper function to make wallet RPC calls
@@ -26,9 +26,13 @@ rpc_call_wallet() {
 info=$(rpc_call "getblockcount" "[]")
 echo $info
 
-# Create and load wallet
+# Create wallet
 info=$(rpc_call "createwallet" '["testwallet"]')
 echo $info
+# Unload wallet first
+info=$(rpc_call "unloadwallet" '["testwallet"]')
+echo $info
+# Load wallet
 info=$(rpc_call "loadwallet" '["testwallet"]')
 echo $info
 
@@ -48,4 +52,4 @@ echo $txn
 # Output the transaction ID to a file
 res=$(jq -r '.result' <<< "${txn}")
 txid=$(jq -r '.txid' <<< "${res}")
-echo $txid > ../out.txt
+echo $txid > out.txt
